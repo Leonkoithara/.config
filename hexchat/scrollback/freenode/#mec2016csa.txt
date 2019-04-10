@@ -1,0 +1,21 @@
+T 1554643929 19*	Now talking on 22#MEC2016CSA
+T 1554643929 22*	Topic for 22#MEC2016CSA is: Series coming up!
+T 1554643929 22*	Topic for 22#MEC2016CSA set by 26Grey_Code!~Grey@116.68.122.29 (24Fri Mar  1 19:44:03 2019)
+T 1554643930 -18ChanServ-	[#MEC2016CSA] "Grey welcomes you!"
+T 1554643954 20*	You are now known as 18Leonkoithara
+T 1554643954 -18NickServ-	This nickname is registered. Please choose a different nickname, or identify via /msg NickServ identify <password>.
+T 1554643969 20*	You are now known as 18Jokr_Jr
+T 1554643989 20*	You are now known as 18Leonkoithara
+T 1554643990 -18NickServ-	This nickname is registered. Please choose a different nickname, or identify via /msg NickServ identify <password>.
+T 1554644011 >18NickServ<	identify ****
+T 1554644011 -18NickServ-	Invalid password for Leonkoithara.
+T 1554644069 >18NickServ<	SENDPASS Leonkoithara
+T 1554644069 -18NickServ-	The password change key for Leonkoithara has been sent to the corresponding email address.
+T 1554644193 >18NickServ<	SETPASS Leonkoithara teadovmtyofu thisisatempsoln
+T 1554644194 -18NickServ-	The password for Leonkoithara has been changed to thisisatempsoln.
+T 1554644201 20*	Disconnected (20)
+T 1554644398 19*	Now talking on 22#MEC2016CSA
+T 1554644398 22*	Topic for 22#MEC2016CSA is: Series coming up!
+T 1554644398 22*	Topic for 22#MEC2016CSA set by 26Grey_Code!~Grey@116.68.122.29 (24Fri Mar  1 19:44:03 2019)
+T 1554644398 -18ChanServ-	[#MEC2016CSA] "Grey welcomes you!"
+T 1554644426 20*	Disconnected (20)

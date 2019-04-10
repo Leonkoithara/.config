@@ -1,0 +1,47 @@
+**** BEGIN LOGGING AT Sun Apr  7 19:01:19 2019
+
+Apr 07 19:01:19 Checksum plugin loaded
+Apr 07 19:01:19 Lua version 1.3/5.3 loaded.
+Apr 07 19:01:19 FiSHLiM plugin loaded
+Apr 07 19:01:19 Sysinfo plugin loaded
+Apr 07 19:01:19 Perl interface loaded
+Apr 07 19:01:19 Python interface loaded
+**** BEGIN LOGGING AT Sun Apr  7 19:07:11 2019
+
+Apr 07 19:07:11 Checksum plugin loaded
+Apr 07 19:07:11 Lua version 1.3/5.3 loaded.
+Apr 07 19:07:12 FiSHLiM plugin loaded
+Apr 07 19:07:12 Sysinfo plugin loaded
+Apr 07 19:07:12 Perl interface loaded
+Apr 07 19:07:12 Python interface loaded
+Apr 07 19:07:12 *	Looking up chat.freenode.net
+Apr 07 19:07:12 *	Connecting to chat.freenode.net (192.186.157.43:6697)
+Apr 07 19:07:13 *	* Subject: /O=Digital Signature Trust Co./CN=DST Root CA X3
+Apr 07 19:07:13 *	* Issuer: /O=Digital Signature Trust Co./CN=DST Root CA X3
+Apr 07 19:07:13 *	* Subject: /C=US/O=Let's Encrypt/CN=Let's Encrypt Authority X3
+Apr 07 19:07:13 *	* Issuer: /O=Digital Signature Trust Co./CN=DST Root CA X3
+Apr 07 19:07:13 *	* Subject: /CN=tepper.freenode.net
+Apr 07 19:07:13 *	* Issuer: /C=US/O=Let's Encrypt/CN=Let's Encrypt Authority X3
+Apr 07 19:07:13 *	* Certification info:
+Apr 07 19:07:13 *	  Subject:
+Apr 07 19:07:13 *	    CN=tepper.freenode.net
+Apr 07 19:07:13 *	  Issuer:
+Apr 07 19:07:13 *	    C=US
+Apr 07 19:07:13 *	    O=Let's Encrypt
+Apr 07 19:07:13 *	    CN=Let's Encrypt Authority X3
+Apr 07 19:07:13 *	  Public key algorithm: rsaEncryption (4096 bits)
+Apr 07 19:07:13 *	  Sign algorithm sha256WithRSAEncryption
+Apr 07 19:07:13 *	  Valid since Mar 25 05:03:58 2019 GM to Jun 23 05:03:58 2019 GM
+Apr 07 19:07:13 *	* Cipher info:
+Apr 07 19:07:13 *	  Version: TLSv1.2, cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits)
+Apr 07 19:07:13 *	Connected. Now logging in.
+Apr 07 19:07:14 *	*** Looking up your hostname...
+Apr 07 19:07:14 *	*** Checking Ident
+Apr 07 19:07:14 *	*** Couldn't look up your hostname
+Apr 07 19:07:14 *	*** No Ident response
+Apr 07 19:07:14 *	Capabilities supported: account-notify extended-join identify-msg multi-prefix sasl
+Apr 07 19:07:14 *	Capabilities requested: account-notify extended-join identify-msg multi-prefix 
+Apr 07 19:07:14 *	leon is already in use. Retrying with leon_...
+Apr 07 19:07:15 *	Capabilities acknowledged: account-notify extended-join identify-msg multi-prefix 
+**** ENDING LOGGING AT Sun Apr  7 19:07:15 2019
+
