@@ -182,4 +182,3 @@ bar {
 exec conky -d
 exec compton
 exec_always feh --randomize --bg-fill $HOME/Pictures/Wallpapers/*
-exec --no-startup-id i3-battery-popup
