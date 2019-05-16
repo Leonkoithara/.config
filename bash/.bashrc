@@ -1,0 +1,110 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+HISTSIZE=-1
+HISTFILESIZE=-1
+HISTCONTROL=ignoreboth
+shopt -s histappend
+
+BOLD="$(tput bold)"
+RED="$(tput setaf 1)"
+GREEN="$(tput setaf 2)"
+YELLOW="$(tput setaf 3)"
+BLUE="$(tput setaf 4)"
+PURPLE="$(tput setaf 5)"
+RESET="$(tput sgr0)"
+
+alias ls='ls --color=auto --human-readable'
+alias l='ls -lah --color=auto'
+alias ga='git add'
+alias gaa='git add .'
+alias gc='git commit'
+alias cp='cp -v'
+alias mv='mv -v'
+alias rm='rm -v'
+alias ln='ln -v'
+alias pg='ping google.com'
+
+export EDITOR=nvim
+
+_is_git_dir() {
+    if [ -d .git ] || [ "$(git rev-parse --git-dir 2>/dev/null)" ]
+    then GITVAR="git"
+    else unset GITVAR
+    fi
+}
+_get_git_branch() {
+    if [ $GITVAR ]
+    then GITBRANCH="($(git symbolic-ref --quiet --short HEAD 2>/dev/null)) "
+    else unset GITBRANCH
+    fi
+}
+
+_get_git_dirty() {
+    if [ "$GITVAR" ]
+    then {
+        if [ -z "$(git status --short 2>/dev/null)" ]
+        then {
+            DIRT="$(tput setaf 2)"
+            DIRTSYMBOL="✔ "
+        }
+        elif [ "$(git ls-files --others --exclude-standard 2>/dev/null)" ]
+        then {
+            DIRT="$(tput setaf 1)"
+            DIRTSYMBOL="✘ "
+        }
+        elif [ "$(git ls-files --exclude-standard 2>/dev/null)" ]
+        then {
+            DIRT="$(tput setaf 3)"
+            DIRTSYMBOL="✘ "
+        }
+        fi
+    }
+    else {
+        unset DIRT
+        unset DIRTSYMBOL
+    }
+    fi
+}
+
+_get_virtual_env_name() {
+    if [ "$VIRTUAL_ENV" ]
+    then {
+        IFS='/' read -a _envdirectory <<< $VIRTUAL_ENV
+        VENV_NAME="${_envdirectory[${#_envdirectory[@]}-1]}"
+        VENV_NAME="[$VENV_NAME] "
+    }
+    else {
+        unset VENV_NAME
+    }
+    fi
+}
+
+_prompt_maker() {
+    history -a
+    _is_git_dir
+    _get_git_branch
+    _get_git_dirty
+    _get_virtual_env_name
+
+    export PS1=" \[${YELLOW}\]${VENV_NAME}\[${GREEN}\]> \[${DIRT}\]${GITBRANCH}\[${RESET}\]"
+    export PS2=" \[${BOLD}${PURPLE}\]... \[${RESET}\]"
+    echo -en "\033]0; "Terminal" \a"
+}
+
+export PROMPT_COMMAND='_prompt_maker'
+
+# Environement variables
+# set ANDROID_HOME if it exists
+if [ -d "/opt/android-sdk" ] ; then
+    export ANDROID_HOME="/opt/android-sdk"
+fi
+
+# set PATH so it includes user's private(home) bin if it exists
+if [ -d "$HOME/.miscellaneous" ] ; then
+    export PATH="$PATH:$HOME/.miscellaneous"
+fi
