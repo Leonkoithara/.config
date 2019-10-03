@@ -31,7 +31,8 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+t exec urxvt
+bindsym $mod+Return exec urxvt -e tmux
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -140,7 +141,6 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 #start applications
 bindsym $mod+F2 exec firefox
 bindsym $mod+F3 exec urxvt -e ranger
-bindsym $mod+t exec urxvt -e tmux
 
 #lockscreen
 bindsym $mod+p exec i3lock -i $HOME/Pictures/i3lock.png
@@ -183,6 +183,7 @@ bar {
 exec conky -d
 exec compton
 exec_always feh --randomize --bg-fill $HOME/Pictures/Wallpapers/*
+exec --no-startup-id i3-battery-popup
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume

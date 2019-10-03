@@ -108,3 +108,5 @@ fi
 if [ -d "$HOME/.miscellaneous" ] ; then
     export PATH="$PATH:$HOME/.miscellaneous"
 fi
+
+export RANGER_LOAD_DEFAULT_RC="FALSE"
