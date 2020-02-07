@@ -29,7 +29,7 @@ alias rm='rm -v'
 alias ln='ln -v'
 alias pg='ping google.com'
 
-export EDITOR=nvim
+export EDITOR=emacsclient
 
 _is_git_dir() {
     if [ -d .git ] || [ "$(git rev-parse --git-dir 2>/dev/null)" ]
