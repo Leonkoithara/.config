@@ -32,7 +32,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+t exec urxvt
-bindsym $mod+Return exec urxvt -e tmux
+bindsym $mod+Return exec urxvt -e tmux -f .config/tmux/config
 
 # kill focused window
 bindsym $mod+Shift+q kill
