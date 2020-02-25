@@ -47,7 +47,6 @@ bind-key C-b split-window
 # bind-key C-o rename-window
 
 # Using the mouse to switch panes
-set -g mouse-utf8 on
 set -g mouse on
 
 # Ctrl - x or x to kill panes
