@@ -16,3 +16,5 @@ ranger
 gtk*
 libreoffice
 cache
+auto-save-list
+elpa

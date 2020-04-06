@@ -93,7 +93,7 @@ _prompt_maker() {
 
     export PS1=" \[${YELLOW}\]${VENV_NAME}\[${GREEN}\]> \[${DIRT}\]${GITBRANCH}\[${RESET}\]"
     export PS2=" \[${BOLD}${PURPLE}\]... \[${RESET}\]"
-    echo -en "\033]0; "Terminal" \a"
+    #echo -en "\033]0; "Terminal" \a"
 }
 
 export PROMPT_COMMAND='_prompt_maker'
