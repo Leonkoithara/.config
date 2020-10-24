@@ -8,18 +8,23 @@
 (package-initialize)
 
 (load-theme 'deeper-blue)
-(add-hook 'before-make-frame-hook
-          #'(lambda ()
-              (add-to-list 'default-frame-alist '(left   . 1))
-              (add-to-list 'default-frame-alist '(top    . 1))
-              (add-to-list 'default-frame-alist '(height . 60))
-              (add-to-list 'default-frame-alist '(width  . 140))))
+;;(add-hook 'before-make-frame-hook
+;;          #'(lambda ()
+;;              (add-to-list 'default-frame-alist '(left   . 1))
+;;              (add-to-list 'default-frame-alist '(top    . 1))
+;;              (add-to-list 'default-frame-alist '(height . 60))
+;;              (add-to-list 'default-frame-alist '(width  . 140))))
+
+(when (daemonp)
+  (exec-path-from-shell-initialize))
 
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
 
-
 (setq-default fill-column 85)
+
+(setq-default tab-width 4)
+(show-paren-mode 1)
 
 (setq backup-by-copying t)
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
@@ -31,7 +36,10 @@
 (setq c-default-style "bsd"
       c-basic-offset 4)
 
+
+
 (add-hook 'after-init-hook 'global-company-mode)
+;;(add-hook 'after-init-hook 'org-agenda-list)
 
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
@@ -47,13 +55,23 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (company-irony irony company-go company go-eldoc go-mode org))))
+	(exec-path-from-shell company-irony irony company-go company go-eldoc go-mode org))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(setq company-require-match nil)
+
+(setq org-log-done 'time)
+(setq org-agenda-files (list "~/Documents/org/taskmanager.org"
+							 "~/Documents/org/work.org"
+							 "~/Documents/org/home.org"))
+(setq org-agenda-span 10
+      org-agenda-start-on-weekday nil
+      org-agenda-start-day "-3d")
 
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
@@ -66,3 +84,8 @@
   (local-set-key (kbd "M-.") 'godef-jump)
   (add-hook 'before-save-hook 'gofmt-before-save)
   )
+
+(setq inhibit-splash-screen t)
+(org-agenda-list)
+(setq initial-buffer-choice (lambda () (get-buffer-create "*Org Agenda*")))
+(delete-other-windows)
