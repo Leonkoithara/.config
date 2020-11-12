@@ -68,7 +68,7 @@
 (setq org-log-done 'time)
 (setq org-agenda-files (list "~/Documents/org/taskmanager.org"
 							 "~/Documents/org/work.org"
-							 "~/Documents/org/home.org"))
+							 "~/Documents/org/googlecal.org"))
 (setq org-agenda-span 10
       org-agenda-start-on-weekday nil
       org-agenda-start-day "-3d")
