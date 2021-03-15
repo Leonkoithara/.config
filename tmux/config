@@ -7,7 +7,7 @@ set -g history-limit 10000
 
 # Changing ctrl b to ctrl a as the command button
 unbind C-b
-set -g prefix C-a
+set -g prefix C-s
 
 # set first window to index 1 (not 0) to map more to the keyboard layout
 set -g base-index 1
@@ -105,15 +105,19 @@ set -g visual-activity on
 
 # Copy from tmux to system clipboard
 # Needs xclip -> sudo apt install xclip
-#bind -t vi-copy y copy-pipe "xclip -sel clip -i"
-bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xsel -i --clipboard"
+# bind -t vi-copy y copy-pipe "xclip -sel clip -i"
+# bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xsel -i --clipboard"
+set -g mode-keys emacs
+bind-key -T copy-mode [    send-keys -X begin-selection
+bind-key -T copy-mode M-w  send-keys -X copy-pipe-and-cancel "pbcopy"
+bind-key -T copy-mode ]    send-keys -X copy-selection
 
 #####################################
 # colors			    #
 #####################################
 
 set-option -g status-bg black
-set-option -g status-fg blue
+set-option -g status-fg green
 set-option -g status-interval 5
 set -g window-style 'fg=white, bg=black'
 set -g window-active-style 'fg=#ffffff, bg=#000000'

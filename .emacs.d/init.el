@@ -10,17 +10,18 @@
 
 (set-face-attribute 'default nil :font "Monaco" :height 180)
 
-;; Set command key as meta for macOS
+;;Set command key as meta for macOS
 (setq-default mac-command-modifier 'meta)
+
 (setq-default fill-column 85)
 (setq-default tab-width 4)
-(setq c-default-style "bsd"
-      c-basic-offset 4)
 (show-paren-mode 1)
 
 (global-display-line-numbers-mode 1)
 (dolist (mode '(org-mode-hook
-				eshell-mode-hook))
+				eshell-mode-hook
+				dired-mode-hook
+				speedbar-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 (setq backup-by-copying t)
@@ -29,6 +30,9 @@
 (setq kept-new-versions 3)
 (setq kept-old-versions 2)
 (setq version-control t)
+
+(setq c-default-style "bsd"
+      c-basic-offset 4)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -42,6 +46,17 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x j" . dired-jump)
+		 :map dired-mode-map
+		 ("=" . 'dired-find-file)
+		 ("-" . 'dired-up-directory)
+		 ("/" . 'dired-diff))
+  :hook
+  (dired-mode . dired-hide-details-mode))
 
 (use-package diminish)
 
@@ -142,7 +157,6 @@
   ((js-mode jsx-mode go-mode) . lsp-deferred)
   :init
   (setq lsp-keymap-prefix "C-c C-l"))
-
 ;; Installation steps of language servers used so far
 ;; ======================GOLANG===========================
 ;; go get golang.org/x/tools/gopls@latest
