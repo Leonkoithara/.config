@@ -31,12 +31,12 @@
 (setq kept-old-versions 2)
 (setq version-control t)
 
-(setq c-default-style "bsd"
+(setq-default c-default-style "bsd"
       c-basic-offset 4)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-
+						
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
@@ -46,17 +46,6 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
-
-(use-package dired
-  :ensure nil
-  :commands (dired dired-jump)
-  :bind (("C-x j" . dired-jump)
-		 :map dired-mode-map
-		 ("=" . 'dired-find-file)
-		 ("-" . 'dired-up-directory)
-		 ("/" . 'dired-diff))
-  :hook
-  (dired-mode . dired-hide-details-mode))
 
 (use-package diminish)
 
@@ -84,15 +73,6 @@
   :config
   (counsel-mode 1))
 
-(use-package sr-speedbar
-  :config
-  (setq speedbar-use-images nil
-		sr-speedbar-width-window 25
-		speedbar-show-unknown-files t
-		sr-speedbar-right-side nil
-		sr-speedbar-auto-refresh nil)
-  :bind (("C-t" . sr-speedbar-toggle)))
-
 (use-package org
   :config
   (set-face-underline 'org-ellipsis nil)
@@ -105,8 +85,8 @@
 		org-agenda-start-on-weekday nil
 		org-agenda-start-day "-3d"
 		org-todo-keywords
-		'((sequence "TODO(t)" "|" "DONE(d!)")
-		  (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "|" "CANC(k@)"))
+		'((sequence "TODO(t!)" "|" "DONE(d!)")
+		  (sequence "BACKLOG(b)" "BLOCKED(p@)" "INPROGRESS(i!)" "REVIEW(v!)" "|" "CANC(k@)"))
 		org-refile-targets '(("Archive.org" :maxlevel . 1)
 							 ("Tasks.org" :maxlevel . 1))
 		org-capture-templates '(("t" "Tasks" entry (file+headline "~/org/Captures.org" "Tasks")
@@ -143,18 +123,36 @@
   (counsel-projectile-mode))
 
 (use-package magit
-  :bind ("C-M-;" . magit-status)
+  :bind ("C-x g" . magit-status)
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
+(use-package json-mode)
 
-(use-package go-mode)
+(use-package web-mode
+  :hook
+  (web-mode . lsp-deferred)
+  :config
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-indent-style 2)
+  :mode (("\\.js\\'" . web-mode)
+	 ("\\.jsx\\'" .  web-mode)
+	 ("\\.ts\\'" . web-mode)
+	 ("\\.tsx\\'" . web-mode)
+	 ("\\.html\\'" . web-mode))
+  :commands web-mode)
+
+(use-package go-mode
+  :hook
+  (go-mode . lsp-deferred))
 
 (use-package lsp-mode
   :commands
   (lsp lsp-deferred)
   :hook
-  ((js-mode jsx-mode go-mode) . lsp-deferred)
+  ((js-mode c-mode-common) . lsp-deferred)
   :init
   (setq lsp-keymap-prefix "C-c C-l"))
 ;; Installation steps of language servers used so far
@@ -167,16 +165,83 @@
 ;; ===============JavaScript/TypeScript===================
 ;; npm i -g typescript-language-server; npm i -g typescript
 
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+
 (use-package company
-  :after lsp-mode
-  :hook (lsp-mode . company-mode)
+  :diminish company-mode
   :bind (:map company-active-map
-         ("<tab>" . company-complete-selection))
-        (:map lsp-mode-map
-         ("<tab>" . company-indent-or-complete-common))
+			  ("<tab>" . company-complete-selection))
   :custom
   (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0))
+  (company-idle-delay 0.0)
+  (company-tooltip-align-annotations t)
+  :init
+  (global-company-mode)
+  (setq company-backends '(company-capf
+                           company-elisp
+                           company-cmake
+                           company-yasnippet
+                           company-files
+                           company-keywords
+                           company-etags
+                           company-gtags
+                           company-ispell)))
+
+(use-package company-box
+  :after company
+  :diminish company-box-mode
+  :custom
+  (company-box-show-single-candidate t)
+  (company-box-frame-behavior 'point)
+  (company-box-max-candidates 10)
+  (company-box-icon-right-margin 0.5)  
+  :hook
+  (company-mode . company-box-mode))
+
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :defer nil
+  :custom
+  (yas-indent-line nil)
+  (yas-inhibit-overlay-modification-protection t)
+  :custom-face
+  (yas-field-highlight-face ((t (:inherit region))))
+  :bind*
+  (:map yas-minor-mode-map
+   ("C-j" . yas-expand)
+   ("TAB" . nil)
+   ("<tab>" . nil)
+   :map yas-keymap
+   ("TAB" . (lambda () (interactive) (company-abort) (yas-next-field)))
+   ("<tab>" . (lambda () (interactive) (company-abort) (yas-next-field))))
+  :hook
+  (snippet-mode . (lambda () (setq-local require-final-newline nil)))
+  :config
+  (yas-global-mode))
+(use-package yasnippet-snippets)
+(use-package ivy-yasnippet
+  :bind (:map yas-minor-mode-map
+              ("C-c s" . ivy-yasnippet)))
+
+(use-package sr-speedbar
+  :config
+  (setq speedbar-use-images nil
+		sr-speedbar-width-window 25
+		speedbar-show-unknown-files t
+		sr-speedbar-right-side nil
+		sr-speedbar-auto-refresh nil)
+  :bind (("C-t" . sr-speedbar-toggle)))
+
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x j" . dired-jump)
+		 :map dired-mode-map
+		 ("h" . 'dired-hide-details-mode)
+		 ("=" . 'dired-find-file)
+		 ("-" . 'dired-up-directory)
+		 ("/" . 'dired-diff)))
 
 ;; C-a to beginning of command instead of beginning of line
 (defun eshell-maybe-bol ()
