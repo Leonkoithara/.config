@@ -8,7 +8,7 @@
 (setq display-time-24hr-format t)
 (display-time-mode 1)
 
-(set-face-attribute 'default nil :font "Monaco" :height 180)
+(set-face-attribute 'default nil :font "Monaco" :height 120)
 
 ;;Set command key as meta for macOS
 (setq-default mac-command-modifier 'meta)
@@ -148,6 +148,11 @@
   :hook
   (go-mode . lsp-deferred))
 
+(use-package csharp-mode
+  :hook
+  (setq-local lsp-auto-guess-root t)
+  (csharp-mode . lsp-deferred))
+
 (use-package lsp-mode
   :commands
   (lsp lsp-deferred)
@@ -164,6 +169,9 @@
 ;; export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 ;; ===============JavaScript/TypeScript===================
 ;; npm i -g typescript-language-server; npm i -g typescript
+;; ======================CSharp===========================
+;; Mx- lsp-install-server
+;; csharp
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
@@ -187,17 +195,12 @@
                            company-etags
                            company-gtags
                            company-ispell)))
+(dolist (mode '(org-mode-hook
+				eshell-mode-hook
+				dired-mode-hook
+				speedbar-mode-hook))
+  (add-hook mode (lambda () (company-mode -1))))
 
-(use-package company-box
-  :after company
-  :diminish company-box-mode
-  :custom
-  (company-box-show-single-candidate t)
-  (company-box-frame-behavior 'point)
-  (company-box-max-candidates 10)
-  (company-box-icon-right-margin 0.5)  
-  :hook
-  (company-mode . company-box-mode))
 
 (use-package yasnippet
   :diminish yas-minor-mode
