@@ -166,6 +166,8 @@
   :config
   (pyvenv-mode 1))
 
+(use-package lsp-pyright)
+
 (use-package lsp-mode
   :commands
   (lsp lsp-deferred)
@@ -182,9 +184,6 @@
 ;; export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 ;; ===============JavaScript/TypeScript===================
 ;; npm i -g typescript-language-server; npm i -g typescript
-;; =====================Python============================
-;; pip install python-language-server
-
 
 
 (use-package lsp-ui
