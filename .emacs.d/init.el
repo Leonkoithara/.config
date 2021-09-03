@@ -32,11 +32,16 @@
 (setq version-control t)
 
 (setq-default c-default-style "bsd"
-      c-basic-offset 4)
+			  c-basic-offset 4)
+
+(global-set-key (kbd "C-c C-s") 'eshell)
+
+(require 'tramp)
+(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-						
+
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
@@ -65,7 +70,6 @@
 (use-package counsel
   :diminish
   :bind (("M-x" . counsel-M-x)
-		 ("C-x C-b" . counsel-ibuffer)
 		 ("C-x b" . counsel-switch-buffer)
 		 ("C-x C-f" . counsel-find-file)
 		 :map minibuffer-local-map
@@ -110,6 +114,10 @@
   :config
   (exec-path-from-shell-initialize))
 
+(use-package kubel)
+
+(use-package docker-tramp)
+
 (use-package projectile
   :diminish projectile-mode
   :config (projectile-mode)
@@ -148,6 +156,16 @@
   :hook
   (go-mode . lsp-deferred))
 
+(use-package python-mode
+  :custom
+  (python-shell-interpreter "python3")
+  :hook
+  (python-mode . lsp-deferred))
+
+(use-package pyvenv
+  :config
+  (pyvenv-mode 1))
+
 (use-package lsp-mode
   :commands
   (lsp lsp-deferred)
@@ -164,6 +182,10 @@
 ;; export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 ;; ===============JavaScript/TypeScript===================
 ;; npm i -g typescript-language-server; npm i -g typescript
+;; =====================Python============================
+;; pip install python-language-server
+
+
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
