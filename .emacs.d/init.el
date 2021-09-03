@@ -32,7 +32,12 @@
 (setq version-control t)
 
 (setq-default c-default-style "bsd"
-      c-basic-offset 4)
+			  c-basic-offset 4)
+
+(global-set-key (kbd "C-c C-s") 'eshell)
+
+(require 'tramp)
+(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -65,7 +70,6 @@
 (use-package counsel
   :diminish
   :bind (("M-x" . counsel-M-x)
-		 ("C-x C-b" . counsel-ibuffer)
 		 ("C-x b" . counsel-switch-buffer)
 		 ("C-x C-f" . counsel-find-file)
 		 :map minibuffer-local-map
@@ -79,20 +83,12 @@
   (setq org-agenda-start-with-log-mode t
 		org-log-done 'time
 		org-log-into-drawer t
-		org-agenda-files (list "~/org/Tasks.org"
-							   "~/org/Birthdays.org")
 		org-agenda-span 10
 		org-agenda-start-on-weekday nil
 		org-agenda-start-day "-3d"
 		org-todo-keywords
 		'((sequence "TODO(t!)" "|" "DONE(d!)")
 		  (sequence "BACKLOG(b)" "BLOCKED(p@)" "INPROGRESS(i!)" "REVIEW(v!)" "|" "CANC(k@)"))
-		org-refile-targets '(("Archive.org" :maxlevel . 1)
-							 ("Tasks.org" :maxlevel . 1))
-		org-capture-templates '(("t" "Tasks" entry (file+headline "~/org/Captures.org" "Tasks")
-								 "* TODO %?\n  %i\n  %a")
-								("i" "Oncall Incidents" entry (file+olp+datetree "~/org/oncall.org" "Oncall Incidents")
-								 "* %?\n %U\n"))
 		org-ellipsis " v")
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
   :bind (("C-c l" . org-store-link)
