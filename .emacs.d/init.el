@@ -13,7 +13,7 @@
 ;;Set command key as meta for macOS
 (setq-default mac-command-modifier 'meta)
 
-(setq-default fill-column 85)
+(setq-default fill-column 110)
 (setq-default tab-width 4)
 (show-paren-mode 1)
 
@@ -93,7 +93,9 @@
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
   :bind (("C-c l" . org-store-link)
 		 ("C-c a" . org-agenda)
-		 ("C-c c" . org-capture)))
+		 ("C-c c" . org-capture))
+  :hook
+  (org-mode . turn-on-auto-fill))
 (use-package org-bullets
   :after org
   :hook (org-mode . org-bullets-mode))
